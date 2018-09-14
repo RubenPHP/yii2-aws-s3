@@ -7,6 +7,7 @@ use frostealth\yii2\aws\s3\commands\ExistCommand;
 use frostealth\yii2\aws\s3\commands\GetCommand;
 use frostealth\yii2\aws\s3\commands\GetPresignedUrlCommand;
 use frostealth\yii2\aws\s3\commands\GetUrlCommand;
+use frostealth\yii2\aws\s3\commands\HeadCommand;
 use frostealth\yii2\aws\s3\commands\PutCommand;
 use frostealth\yii2\aws\s3\commands\CopyCommand;
 use frostealth\yii2\aws\s3\commands\RestoreCommand;
@@ -74,6 +75,21 @@ class CommandFactory
         /** @var CopyCommand $command */
         $command = $this->builder->build(CopyCommand::class);
         $command->withTargetFilename($targetFilename)->withCopySource($copySource);
+
+        return $command;
+    }
+
+    /**
+     * @param string $targetFilename
+     * @param mixed  $copySource
+     *
+     * @return \frostealth\yii2\aws\s3\commands\CopyCommand
+     */
+    public function head(string $filename): HeadCommand
+    {
+        /** @var HeadCommand $command */
+        $command = $this->builder->build(HeadCommand::class);
+        $command->byFilename($filename);
 
         return $command;
     }
