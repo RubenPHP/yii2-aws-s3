@@ -167,6 +167,28 @@ class PutCommand extends ExecutableCommand implements PlainCommand, HasBucket, H
         return $this;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getCacheControl()
+    {
+        return $this->args['CacheControl'] ?? null;
+    }
+
+    /**
+     * @param mixed $cacheControl
+     *
+     * @return $this
+     */
+    public function withCacheControl($cacheControl)
+    {
+        $this->args['CacheControl'] =  "max-age={$cacheControl}";
+
+        return $this;
+    }
+
+
     /**
      * @internal used by the handlers
      *
